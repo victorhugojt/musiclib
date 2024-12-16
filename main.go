@@ -17,6 +17,10 @@ func main() {
 	}
 	services.CreateUser(&user1)
 
+	var user *models.User
+	user = models.NewUser( "3", "sofi", "sofi Doe", "sofi@example.com")
+	services.CreateUser(user)
+
 	user2 := models.User{
 		Id:       "2",
 		UserName: "anita",
