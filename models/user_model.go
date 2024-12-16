@@ -6,8 +6,3 @@ type User struct {
 	FullName string
 	Email    string
 }
-
-type UserService interface {
-	CreateUser() error
-	GetAllUser() ([]*User, error)
-}
