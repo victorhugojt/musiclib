@@ -5,29 +5,30 @@ import (
 
 	"musiclib.com.co/musiclib/models"
 	"musiclib.com.co/musiclib/services"
+	"musiclib.com.co/musiclib/utils"
 )
 
 func main() {
 	fmt.Println("Hello, Music Library!")
-	user1 := models.User{
+	/*user1 := models.User{
 		Id:       "1",
 		UserName: "johndoe",
 		FullName: "John Doe",
 		Email:    "john@example.com",
 	}
-	services.CreateUser(&user1)
+	services.CreateUser(&user1)*/
 
-	var user *models.User
-	user = models.NewUser( "3", "sofi", "sofi Doe", "sofi@example.com")
+	user := models.NewUser("3", "sofi", "sofi Doe", "sofi@example.com")
 	services.CreateUser(user)
+	utils.Encode(user, "test_file.json")
 
-	user2 := models.User{
+	/*user2 := models.User{
 		Id:       "2",
 		UserName: "anita",
 		FullName: "Anita Doe",
 		Email:    "anita@example.com",
 	}
-	services.CreateUser(&user2)
+	services.CreateUser(&user2)*/
 
 	users, err := services.GetAllUser()
 	if err != nil {
