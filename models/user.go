@@ -1,17 +1,23 @@
 package models
 
+import "time"
+
 type User struct {
-	Id       string `json:"id"`
 	UserName string `json:"user_name"`
 	FullName string `json:"full_name"`
 	Email    string `json:"email"`
+	Base
 }
 
-func NewUser(id, userName, fullName, email string) *User {
+func NewUser(id, userName, fullName, email string, created_by string) *User {
 	return &User{
-		Id:       id,
 		UserName: userName,
 		FullName: fullName,
 		Email:    email,
+		Base: Base{
+			Id:         id,
+			Created_By: created_by,
+			Created_On: time.Now(),
+		},
 	}
 }
