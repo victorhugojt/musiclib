@@ -14,6 +14,8 @@ func main() {
 	user0 := models.NewUser("sofi", "sofi Doe", "sofi@example.com", "admin")
 	services.CreateUser(user0)
 
+	fmt.Println(user0)
+
 	user1 := models.NewUser("emi", "emi Doe", "emi@example.com", "admin")
 	services.CreateUser(user1)
 
