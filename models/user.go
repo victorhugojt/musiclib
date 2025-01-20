@@ -3,20 +3,22 @@ package models
 import "fmt"
 
 type User struct {
-	UserName string `json:"user_name"`
-	FullName string `json:"full_name"`
-	Email    string `json:"email"`
+	UserName   string `json:"user_name"`
+	FullName   string `json:"full_name"`
+	Email      string `json:"email"`
+	Created_By string `json:"created_by"`
 	BaseTemplate
 }
 
 func NewUser(userName, fullName, email string, created_by string) *User {
 	defaultBaseTemplate := BaseTemplate{}
-	baseTemplate := BaseTemplate.NewBaseTemplate(defaultBaseTemplate, created_by)
+	baseTemplate := NewBaseTemplate(defaultBaseTemplate)
 
 	return &User{
 		UserName:     userName,
 		FullName:     fullName,
 		Email:        email,
+		Created_By:   created_by,
 		BaseTemplate: *baseTemplate,
 	}
 }

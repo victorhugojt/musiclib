@@ -11,5 +11,6 @@ var (
 
 func StartRouting() {
 	router.GET("/users", controllers.GetAllUsers)
+	router.POST("/users", controllers.SaveUser)
 	router.Logger.Fatal(router.Start(":3000"))
 }
