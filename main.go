@@ -4,45 +4,24 @@ import (
 	"fmt"
 
 	"musiclib.com.co/musiclib/models"
+	"musiclib.com.co/musiclib/rest/routers"
 	"musiclib.com.co/musiclib/services"
-	"musiclib.com.co/musiclib/utils"
 )
 
 func main() {
 	fmt.Println("Hello, Music Library!")
-	/*user1 := models.User{
-		Id:       "1",
-		UserName: "johndoe",
-		FullName: "John Doe",
-		Email:    "john@example.com",
-	}
-	services.CreateUser(&user1)*/
 
-	user := models.NewUser("3", "sofi", "sofi Doe", "sofi@example.com")
-	services.CreateUser(user)
-	utils.Encode(user, "test_file.json")
+	user0 := models.NewUser("sofi", "sofi Doe", "sofi@example.com", "admin")
+	services.CreateUser(user0)
 
-	/*user2 := models.User{
-		Id:       "2",
-		UserName: "anita",
-		FullName: "Anita Doe",
-		Email:    "anita@example.com",
-	}
-	services.CreateUser(&user2)*/
+	fmt.Println(user0)
 
-	users, err := services.GetAllUser()
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
+	user1 := models.NewUser("emi", "emi Doe", "emi@example.com", "admin")
+	services.CreateUser(user1)
 
-	fmt.Println("\nUsers in the system:")
-	fmt.Println("--------------------")
-	for _, user := range users {
-		fmt.Printf("Id: %s\n", user.Id)
-		fmt.Printf("Username: %s\n", user.UserName)
-		fmt.Printf("Full Name: %s\n", user.FullName)
-		fmt.Printf("Email: %s\n", user.Email)
-		fmt.Println("--------------------")
-	}
+	user2 := models.NewUser("lini", "lini Doe", "lini@example.com", "admin")
+	services.CreateUser(user2)
+
+	routers.StartRouting()
+
 }
