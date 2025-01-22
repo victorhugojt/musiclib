@@ -28,7 +28,7 @@ func InitDB() {
 
 func createTables() {
 	usersTableStr := ` CREATE TABLE IF NOT EXISTS users (
-						id INTEGER PRIMARY KEY AUTOINCREMENT,
+						id TEXT PRIMARY KEY,
 						full_name TEXT NOT NULL,
 						email TEXT NOT NULL,
 						created_by DATETIME NOT NULL,
@@ -42,7 +42,7 @@ func createTables() {
 	}
 
 	librariesTableStr := ` CREATE TABLE IF NOT EXISTS users (
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		id TEXT PRIMARY KEY,
 		name TEXT NOT NULL,
 		description TEXT NOT NULL,
 		user_id TEXT NOT NULL,
