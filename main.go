@@ -4,26 +4,13 @@ import (
 	"fmt"
 
 	"musiclib.com.co/musiclib/db"
-	"musiclib.com.co/musiclib/models"
 	"musiclib.com.co/musiclib/rest/routers"
-	"musiclib.com.co/musiclib/services"
 )
 
 func main() {
 	fmt.Println("Hello, Music Library!")
 
 	db.InitDB()
-
-	user0 := models.NewUser("sofi", "sofi Doe", "sofi@example.com", "admin")
-	services.CreateUser(user0)
-
-	fmt.Println(user0)
-
-	user1 := models.NewUser("emi", "emi Doe", "emi@example.com", "admin")
-	services.CreateUser(user1)
-
-	user2 := models.NewUser("lini", "lini Doe", "lini@example.com", "admin")
-	services.CreateUser(user2)
 
 	routers.StartRouting()
 

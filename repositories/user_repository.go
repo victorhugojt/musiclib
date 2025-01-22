@@ -8,16 +8,43 @@ import (
 	"musiclib.com.co/musiclib/models"
 )
 
-var userList []*models.User
-
 func AddUser(user *models.User) error {
 	InsertUser(user.Id, user.UserName, user.FullName, user.Created_By)
-	userList = append(userList, user)
 	return nil
 }
 
 func GetAllUsers() ([]*models.User, error) {
-	return userList, nil
+	users, err := queryUsers()
+	if err != nil {
+		return nil, fmt.Errorf("error querying users: %w", err)
+	}
+	return users, nil
+}
+
+func queryUsers() ([]*models.User, error) {
+	var users []*models.User
+
+	queryStr := `SELECT full_name, email, created_by, created_on FROM users`
+	rows, err := db.DB.Query(queryStr)
+	if err != nil {
+		return nil, fmt.Errorf("error executing query: %w", err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var user models.User
+		err := rows.Scan(&user.FullName, &user.Email, &user.Created_By, &user.Created_On)
+		if err != nil {
+			return nil, fmt.Errorf("error scanning user: %w", err)
+		}
+		users = append(users, &user)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("error iterating over rows: %w", err)
+	}
+
+	return users, nil
 }
 
 func InsertUser(fullName, email, createdBy, createdOn string) {
