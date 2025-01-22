@@ -11,6 +11,7 @@ import (
 var userList []*models.User
 
 func AddUser(user *models.User) error {
+	InsertUser(user.Id, user.UserName, user.FullName, user.Created_By)
 	userList = append(userList, user)
 	return nil
 }
