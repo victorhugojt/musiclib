@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"musiclib.com.co/musiclib/db"
 	"musiclib.com.co/musiclib/models"
 	"musiclib.com.co/musiclib/rest/routers"
 	"musiclib.com.co/musiclib/services"
@@ -10,6 +11,8 @@ import (
 
 func main() {
 	fmt.Println("Hello, Music Library!")
+
+	db.InitDB()
 
 	user0 := models.NewUser("sofi", "sofi Doe", "sofi@example.com", "admin")
 	services.CreateUser(user0)
