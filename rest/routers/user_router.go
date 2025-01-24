@@ -14,5 +14,6 @@ func StartRouting() {
 	router.POST("/users", controllers.SaveUser)
 	router.POST("/libraries", controllers.SaveLibrary)
 	router.GET("/libraries", controllers.GetAllLibraries)
+	router.GET("/libraries/:id", controllers.GetLibraryById)
 	router.Logger.Fatal(router.Start(":3000"))
 }

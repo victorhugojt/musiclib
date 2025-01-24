@@ -9,6 +9,14 @@ import (
 	"musiclib.com.co/musiclib/services"
 )
 
+func GetLibraryById(c echo.Context) error {
+	response, err := services.GetLibraryById(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	return c.JSON(http.StatusOK, response)
+}
+
 func GetAllLibraries(c echo.Context) error {
 	response, err := services.GetAllLibraries()
 	if err != nil {

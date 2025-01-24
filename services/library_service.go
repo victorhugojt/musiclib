@@ -13,3 +13,9 @@ func CreateLibrary(l *models.Library) (*models.Library, error) {
 func GetAllLibraries() ([]*models.Library, error) {
 	return repositories.GetAllLibraries()
 }
+
+func GetLibraryById(id string) (*models.Library, error) {
+	library, err := repositories.GetLibraryById(id)
+	return library, err
+
+}
