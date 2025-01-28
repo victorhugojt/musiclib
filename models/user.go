@@ -7,6 +7,7 @@ type User struct {
 	FullName   string `json:"full_name"`
 	Email      string `json:"email"`
 	Created_By string `json:"created_by"`
+	Password   string `json:"password"`
 	BaseTemplate
 }
 

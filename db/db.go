@@ -33,7 +33,8 @@ func createTables() {
 						email TEXT NOT NULL,
 						created_by DATETIME NOT NULL,
 						created_on DATETIME NOT NULL,
-						user_name TEXT NOT NULL
+						user_name TEXT NOT NULL,
+						password TEXT NOT NULL
 						)
 					`
 

@@ -9,3 +9,4 @@ SELECT * from users;
 
 --ALTER TABLE users ADD COLUMN user_name TEXT;
 
+--ALTER TABLE users ADD COLUMN password TEXT;
