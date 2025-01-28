@@ -32,7 +32,8 @@ func createTables() {
 						full_name TEXT NOT NULL,
 						email TEXT NOT NULL,
 						created_by DATETIME NOT NULL,
-						created_on DATETIME NOT NULL
+						created_on DATETIME NOT NULL,
+						user_name TEXT NOT NULL
 						)
 					`
 
@@ -41,7 +42,7 @@ func createTables() {
 		panic("error creating USERS table")
 	}
 
-	librariesTableStr := ` CREATE TABLE IF NOT EXISTS users (
+	librariesTableStr := ` CREATE TABLE IF NOT EXISTS libraries (
 		id TEXT PRIMARY KEY,
 		name TEXT NOT NULL,
 		description TEXT NOT NULL,

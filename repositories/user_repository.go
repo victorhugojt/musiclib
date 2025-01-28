@@ -3,13 +3,14 @@ package repositories
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"musiclib.com.co/musiclib/db"
 	"musiclib.com.co/musiclib/models"
 )
 
 func AddUser(user *models.User) error {
-	InsertUser(user.Id, user.UserName, user.FullName, user.Created_By)
+	InsertUser(user.Id, user.FullName, user.Email, user.Created_By, user.Created_On, user.UserName)
 	return nil
 }
 
@@ -24,7 +25,7 @@ func GetAllUsers() ([]*models.User, error) {
 func queryUsers() ([]*models.User, error) {
 	var users []*models.User
 
-	queryStr := `SELECT full_name, email, created_by, created_on FROM users`
+	queryStr := `SELECT id, user_name, full_name, email, created_by, created_on FROM users`
 	rows, err := db.DB.Query(queryStr)
 	if err != nil {
 		return nil, fmt.Errorf("error executing query: %w", err)
@@ -33,7 +34,7 @@ func queryUsers() ([]*models.User, error) {
 
 	for rows.Next() {
 		var user models.User
-		err := rows.Scan(&user.FullName, &user.Email, &user.Created_By, &user.Created_On)
+		err := rows.Scan(&user.Id, &user.UserName, &user.FullName, &user.Email, &user.Created_By, &user.Created_On)
 		if err != nil {
 			return nil, fmt.Errorf("error scanning user: %w", err)
 		}
@@ -47,15 +48,15 @@ func queryUsers() ([]*models.User, error) {
 	return users, nil
 }
 
-func InsertUser(fullName, email, createdBy, createdOn string) {
-	insertUserSQL := `INSERT INTO users (full_name, email, created_by, created_on) VALUES (?, ?, ?, ?)`
+func InsertUser(id, fullName, email, createdBy string, createdOn time.Time, user_name string) {
+	insertUserSQL := `INSERT INTO users (id, full_name, email, created_by, created_on, user_name) VALUES (?, ?, ?, ?, ?, ?)`
 	statement, err := db.DB.Prepare(insertUserSQL)
 	if err != nil {
 		log.Fatalf("Error preparing statement: %v", err)
 	}
 	defer statement.Close()
 
-	_, err = statement.Exec(fullName, email, createdBy, createdOn)
+	_, err = statement.Exec(id, fullName, email, createdBy, createdOn, user_name)
 	if err != nil {
 		log.Fatalf("Error executing statement: %v", err)
 	}
