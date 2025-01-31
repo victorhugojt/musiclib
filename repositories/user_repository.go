@@ -10,6 +10,20 @@ import (
 	"musiclib.com.co/musiclib/utils"
 )
 
+func GetUserByEmail(email string) (*models.User, error) {
+
+	queryStr := `SELECT id, user_name, full_name, email, password FROM users WHERE email = ?`
+	row := db.DB.QueryRow(queryStr, email)
+
+	var user models.User
+	err := row.Scan(&user.Id, &user.UserName, &user.FullName, &user.Email, &user.Password)
+	if err != nil {
+		return nil, fmt.Errorf("error scanning User: %w", err)
+	}
+
+	return &user, nil
+}
+
 func AddUser(user *models.User) error {
 	InsertUser(user.Id, user.FullName, user.Email, user.Created_By, user.Created_On, user.UserName, user.Password)
 	return nil
