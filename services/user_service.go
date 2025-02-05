@@ -17,19 +17,19 @@ func GetAllUser() ([]*models.User, error) {
 	return repositories.GetAllUsers()
 }
 
-func ValidateCredentials(u *models.User) error {
+func ValidateCredentials(u *models.User) (*models.User, error) {
 	user, err := repositories.GetUserByEmail(u.Email)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	passwordValid := utils.CheckPassWord(u.Password, user.Password)
 
 	if !passwordValid {
-		return errors.New("credentials are not valid")
+		return nil, errors.New("credentials are not valid")
 	}
 
-	return nil
+	return user, nil
 
 }

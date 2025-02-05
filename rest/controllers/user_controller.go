@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"musiclib.com.co/musiclib/models"
 	"musiclib.com.co/musiclib/services"
+	"musiclib.com.co/musiclib/utils"
 )
 
 func Login(c echo.Context) error {
@@ -17,12 +18,18 @@ func Login(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
-	err := services.ValidateCredentials(u)
+	user, err := services.ValidateCredentials(u)
 	if err != nil {
 		return c.JSON(http.StatusUnauthorized, map[string]string{"error": err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, map[string]string{"message": "Autenticated"})
+	token, err := utils.GenerateToken(user.Email, user.Id)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, map[string]string{"message": "Autenticated", "token": token})
 
 }
 

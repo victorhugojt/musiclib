@@ -1,1 +1,6 @@
 Pass Context to high level methods & return status codes from CONSTANTS
+JWT
+Groups & Middlewares for routers
+Consents
+
++ Claims and UserId generic
